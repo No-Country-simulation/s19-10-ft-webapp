@@ -486,9 +486,6 @@ $RECYCLE.BIN/
 # Exclude Migrations folder in Persistence layer
 NotebookLM.Persistence/Migrations
 
-# Exclude appsenttings.json folder in Api 
-NotebookLM.Api/appsettings.json
-
 # Ignorar launch.json y tasks.json
 .vscode/launch.json
 .vscode/tasks.json
