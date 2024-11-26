@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui";
 import { PiEnvelopeSimpleFill } from "react-icons/pi";
+import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { loginSchemaType } from "./types";
 import { loginrSchema } from "./schemas/index";
@@ -83,15 +84,28 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <div className="-mt-3 flex justify-end w-full">
-          <Link to="/forgot-password" className="text-sm text-gray-400 text-right">
-            Need an account? <span className="text-blue-600 underline">Create one</span>
-          </Link>
-        </div>
+
         <div className="w-full pt-3">
           <Button variant={"default"} className="w-full hover:bg-purpleHover">
             Sign in
           </Button>
+          <div className="flex w-full items-center gap-2 my-5">
+            <hr className="h-[2px] bg-gray-200 w-full" />
+            <span>Or</span>
+            <hr className="h-[2px] bg-gray-200 w-full" />
+          </div>
+          <Button className="w-full bg-white text-black border-2 border-gray-300 hover:bg-purpleHover">
+            Sign in with Google <FcGoogle />
+          </Button>
+        </div>
+        <div className="mt-8 flex justify-end w-full">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-gray-400 text-right"
+          >
+            Need an account?{" "}
+            <span className="text-blue-600 underline">Create one</span>
+          </Link>
         </div>
       </form>
     </Form>
