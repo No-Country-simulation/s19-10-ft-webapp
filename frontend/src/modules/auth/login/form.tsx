@@ -18,6 +18,11 @@ import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { loginSchemaType } from "./types";
 import { loginrSchema } from "./schemas/index";
 import { Link } from "react-router-dom";
+import Spinner from "@/components/shared/spinner";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "./actions";
+
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,9 +33,21 @@ const LoginForm = () => {
       password: "",
     },
   });
-
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      if (data.token) {
+        toast.success("Successfully signed in");
+      } else {
+        toast.error(data.error);
+      }
+    },
+    onError: () => {
+      toast.error("Unexpected error occurred");
+    },
+  });
   const onSubmit = async (values: loginSchemaType) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <Form {...form}>
@@ -87,7 +104,7 @@ const LoginForm = () => {
 
         <div className="w-full pt-3">
           <Button variant={"default"} className="w-full hover:bg-purpleHover">
-            Sign in
+            {mutation.isPending ? <Spinner /> : "Sign in"}
           </Button>
           <div className="flex w-full items-center gap-2 my-5">
             <hr className="h-[2px] bg-gray-200 w-full" />
