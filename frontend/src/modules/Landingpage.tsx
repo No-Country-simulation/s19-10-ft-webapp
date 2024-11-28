@@ -3,25 +3,22 @@ import logo from '../assets/common/logo-title.svg'
 
 export default function Landingpage() {
 
-    return (
-      <div className=''>
+  return (
+    <div className=''>
       <div className="h-screen w-screen bg-blue-300 text-white flex flex-col justify-between">
         {/* Header */}
         <header className="w-full p-5 flex justify-between items-center">
-        <img src={logo} alt="notepad ai" className="p-4  w-44" />
+          <img src={logo} alt="notepad ai" className="p-4  w-44" />
           <nav className="space-x-4 text-black">
-            <a href="#features" className="hover:underline">
-              Features
-            </a>
-            <a href="#about" className="hover:underline">
-              About
-            </a>
-            <a href="#contact" className="hover:underline">
-              Contact
-            </a>
+            <Link to="/login" className="hover:underline">
+              Sign In
+            </Link>
+            <Link to="/signup" className="hover:underline">
+              Sign up
+            </Link>
           </nav>
         </header>
-  
+
         {/* Hero Section */}
         <main className="flex flex-col items-center justify-center flex-1 text-center px-5">
           <h2 className="text-5xl font-extrabold mb-5">Interact with Your Documents</h2>
@@ -35,17 +32,16 @@ export default function Landingpage() {
             Get Started
           </Link>
         </main>
-  
+
         {/* Footer */}
         <footer className="p-5 text-center text-sm bg-blue-500">
           <p>
-            © 2024 Notepad AI. All Rights Reserved. Created with ❤️ by 
+            © 2024 Notepad AI. All Rights Reserved. Created with ❤️ by
             s19-10-ft-webapp Team.
           </p>
         </footer>
       </div>
-  
-      </div>
-    )
-  }
-  
+
+    </div>
+  )
+}
