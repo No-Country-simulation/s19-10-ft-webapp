@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/common/logo-title.svg'
+import logo from '../../assets/common/logo-title.svg'
 
 export default function Landingpage() {
 

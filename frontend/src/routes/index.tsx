@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Landingpage from '@/modules/Landingpage';
-import Auth from '@/modules/auth/templates/Auth';
-import LoginForm from '@/modules/auth/login/Form';
-import SignUpForm from '@/modules/auth/signup/Form';
+import Landingpage from '@/modules/home/Landingpage';
+import Auth from '@/modules/auth/layouts/Auth';
+import LoginForm from '@/modules/auth/login/form';
+import SignUpForm from '@/modules/auth/signup/form';
+import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
       element: <SignUpForm />
     }
     ]
-  }
+  },
+  {
+    path: '/dashboard',
+    element: <DashboardLayout />
+  },
 ]);
 
 export default function Router() {
