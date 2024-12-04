@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NotebookLM.Domain.Entities;
 
 namespace NotebookLM.Persistence.Configuration;
 internal class MessageConfiguration : IEntityTypeConfiguration<Message>
