@@ -22,4 +22,5 @@ namespace NotebookLM.Domain.Entities;
        public DateTime UpdatedAt { get; set; }
        
        public virtual File File { get; set; } = null!;
-   }
+       public ChatHistory ChatHistory { get; set; }
+}

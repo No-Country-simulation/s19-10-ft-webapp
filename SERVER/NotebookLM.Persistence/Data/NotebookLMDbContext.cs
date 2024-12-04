@@ -13,7 +13,7 @@ namespace NotebookLM.Persistence.Data;
         }
 
         public DbSet<ChatHistory> ChatHistories { get; set; }
-        public DbSet<File> Files { get; set; }
+        public DbSet<Domain.Entities.File> Files { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Summary> Summaries { get; set; }
 
