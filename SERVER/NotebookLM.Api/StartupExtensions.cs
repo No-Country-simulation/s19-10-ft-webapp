@@ -4,6 +4,9 @@ using System.Reflection;
 using NotebookLM.Mapping;
 using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Mvc;
+using NotebookLM.Application.Contracts.Persistence;
+using NotebookLM.Persistence.Services;
 //using AdoPet.Cloudinary;
 //using AdoPet.RealTime;
 //using AdoPet.SendGrid;
@@ -17,6 +20,7 @@ public static class StartupExtensions
         //builder.Services.AddApplicationServices();
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddIdentityServices(builder.Configuration);
+        builder.Services.AddScoped<IFileService, FileService>();
         //builder.Services.AddCloudServiceExtensions(builder.Configuration);
         //builder.Services.AddRealTimeServices();
         //builder.Services.AddSendGridServiceExtensions(builder.Configuration);
@@ -24,7 +28,10 @@ public static class StartupExtensions
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddSwagger();
         builder.Services.AddMappingProfiles();
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options =>
+        {
+            options.Filters.Add(new RequestSizeLimitAttribute(10 * 1024 * 1024));
+        });
 
         builder.Services.AddCors(options =>
         {
@@ -117,7 +124,7 @@ public static class StartupExtensions
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            var authorizeAttributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
+            var authorizeAttributes = context.MethodInfo.DeclaringType!.GetCustomAttributes(true)
                 .Union(context.MethodInfo.GetCustomAttributes(true))
                 .OfType<AuthorizeAttribute>();
 
