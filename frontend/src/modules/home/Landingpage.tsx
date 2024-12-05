@@ -5,17 +5,17 @@ export default function Landingpage() {
 
   return (
     <div className=''>
-      <div className="h-screen w-screen bg-blue-300 text-white flex flex-col justify-between">
+      <div className="h-screen bg-[url('@/assets/landing-bg.jpg')] flex flex-col justify-between">
         {/* Header */}
-        <header className="w-full p-5 flex justify-between items-center">
+        <header className="w-full p-2 flex justify-between items-center bg-slate-50">
         <Link to="/">
           <img src={logo} alt="notepad ai" className="p-4  w-44" />
           </Link>
           <nav className="space-x-4 text-black">
-            <Link to="/login" className="hover:underline">
+            <Link to="/login" className="bg-blue-600 text-white hover:bg-blue-500 p-3 rounded">
               Sign In
             </Link>
-            <Link to="/signup" className="hover:underline">
+            <Link to="/signup" className="bg-blue-600 text-white hover:bg-blue-500 p-3 rounded">
               Sign up
             </Link>
           </nav>
@@ -29,14 +29,14 @@ export default function Landingpage() {
           </p>
           <Link
             to="/dashboard"
-            className="bg-blue-500 hover:bg-blue-400 px-6 py-3 rounded-full text-lg font-medium shadow-md transition duration-300"
+            className="bg-blue-700 hover:bg-blue-500 text-white px-6 py-3 rounded-full text-lg font-medium shadow-md transition duration-300"
           >
             Get Started
           </Link>
         </main>
 
         {/* Footer */}
-        <footer className="p-5 text-center text-sm bg-blue-500">
+        <footer className="p-5 text-center text-sm">
           <p>
             © 2024 Notepad AI. All Rights Reserved. Created with ❤️ by
             s19-10-ft-webapp Team.
