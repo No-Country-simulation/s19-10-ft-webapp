@@ -10,5 +10,10 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.Property(u => u.Name).HasMaxLength(50);
         builder.Property(u => u.LastName).HasMaxLength(50);
+
+        builder.HasMany(u => u.Files)
+            .WithOne(f => f.User)
+            .HasForeignKey(f => f.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

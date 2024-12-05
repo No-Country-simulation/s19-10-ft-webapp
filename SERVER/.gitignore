@@ -483,6 +483,9 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
+# Exclude files folder in Api layer
+NotebookLM.API/wwwroot
+
 # Exclude Migrations folder in Persistence layer
 NotebookLM.Persistence/Migrations
 
