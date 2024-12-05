@@ -10,8 +10,8 @@ interface Message {
 
 const ChatWindow: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, sender: "user", text: "Hola, ¿cómo puedo ayudarte?" },
-    { id: 2, sender: "ai", text: "¿Puedes explicarme el documento 1?" },
+    { id: 1, sender: "ai", text: "Hello, how can I assist you?" },
+    { id: 2, sender: "user", text: "Can you explain document 1 to me?" },
   ]);
 
   const handleSendMessage = (text: string) => {

@@ -18,7 +18,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
     <div className="flex items-center p-4 bg-white border-t border-gray-300">
       <input
         type="text"
-        placeholder="Escribe tu mensaje..."
+        placeholder="Write your message..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
@@ -28,7 +28,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
         onClick={handleSend}
         className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
       >
-        Enviar
+        Send
       </button>
     </div>
   );

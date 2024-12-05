@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import logo from '@/assets/common/logo-title.svg'
+import { Link } from "react-router";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,8 +24,9 @@ const Navbar: React.FC = () => {
   return (
     <div className="bg-gray-100 border-b border-gray-300 p-4 flex items-center justify-between">
       {/* Nombre del proyecto */}
-      <h1 className="text-xl font-semibold text-gray-700">Notepad AI</h1>
-
+      <Link to="/">
+          <img src={logo} alt="notepad ai" className="p-4  w-44" />
+          </Link>
       {/* Icono de perfil y menú desplegable */}
       <div className="relative" ref={menuRef}>
         <FaUserCircle
@@ -37,19 +40,19 @@ const Navbar: React.FC = () => {
                 className="p-2 hover:bg-gray-100 cursor-pointer"
                 onClick={() => console.log("Perfil clickeado")}
               >
-                Perfil
+                Profile
               </li>
               <li
                 className="p-2 hover:bg-gray-100 cursor-pointer"
                 onClick={() => console.log("Configuraciones clickeado")}
               >
-                Configuraciones
+                Settings
               </li>
               <li
                 className="p-2 hover:bg-gray-100 cursor-pointer"
                 onClick={() => console.log("Cerrar sesión clickeado")}
               >
-                Cerrar sesión
+                Log out
               </li>
             </ul>
           </div>

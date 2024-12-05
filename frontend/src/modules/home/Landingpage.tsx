@@ -8,7 +8,9 @@ export default function Landingpage() {
       <div className="h-screen w-screen bg-blue-300 text-white flex flex-col justify-between">
         {/* Header */}
         <header className="w-full p-5 flex justify-between items-center">
+        <Link to="/">
           <img src={logo} alt="notepad ai" className="p-4  w-44" />
+          </Link>
           <nav className="space-x-4 text-black">
             <Link to="/login" className="hover:underline">
               Sign In

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface Document {
   id: number;
@@ -9,19 +9,14 @@ interface Document {
 const Sidebar: React.FC = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [dragging, setDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragging(false);
 
     const files = Array.from(event.dataTransfer.files);
-    const newDocuments = files.map((file, index) => ({
-      id: documents.length + index + 1,
-      name: file.name,
-      size: `${(file.size / (1024 * 1024)).toFixed(2)} MB`,
-    }));
-
-    setDocuments((prevDocuments) => [...prevDocuments, ...newDocuments]);
+    processFiles(files);
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -31,9 +26,28 @@ const Sidebar: React.FC = () => {
 
   const handleDragLeave = () => setDragging(false);
 
+  const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    processFiles(files);
+  };
+
+  const handleAreaClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const processFiles = (files: File[]) => {
+    const newDocuments = files.map((file, index) => ({
+      id: Date.now() + index,
+      name: file.name,
+      size: `${(file.size / (1024 * 1024)).toFixed(2)} MB`,
+    }));
+    setDocuments((prevDocuments) => [...prevDocuments, ...newDocuments]);
+  };
+
   return (
     <div className="w-64 h-full bg-gray-100 border-r border-gray-300 flex flex-col">
-      {/* Zona de arrastrar y soltar */}
+      <h2 className="font-semibold text-gray-700 m-2">Docs</h2>
+      {/* Zona de arrastrar, soltar y clic */}
       <div
         className={`flex-1 p-4 flex items-center justify-center border-dashed border-2 ${
           dragging ? "border-blue-500 bg-blue-50" : "border-gray-300"
@@ -41,17 +55,27 @@ const Sidebar: React.FC = () => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        onClick={handleAreaClick} // Activar input al hacer clic
       >
+        <input
+          type="file"
+          ref={fileInputRef}
+          multiple
+          className="hidden" // Ocultar input
+          onChange={handleFileInputChange}
+        />
         <p className="text-gray-600 text-center">
-          {dragging ? "Suelta para cargar" : "Arrastra documentos aquí"}
+          {dragging ? "Drop to upload" : "Drag documents here or click to upload"}
         </p>
       </div>
 
       {/* Lista de documentos */}
       <div className="p-4 overflow-y-auto">
-        <h3 className="font-semibold text-gray-700 mb-2">Documentos cargados</h3>
+
+        
+        <h3 className="font-semibold text-gray-700 mb-2">Uploaded documents</h3>
         {documents.length === 0 ? (
-          <p className="text-gray-500 text-sm">No se han cargado documentos.</p>
+          <p className="text-gray-500 text-sm">No documents have been uploaded.</p>
         ) : (
           <ul className="space-y-2">
             {documents.map((doc) => (
@@ -69,7 +93,7 @@ const Sidebar: React.FC = () => {
                   }
                   className="text-red-500 text-sm hover:underline"
                 >
-                  Eliminar
+                  Delete
                 </button>
               </li>
             ))}
