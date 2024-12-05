@@ -23,6 +23,6 @@ namespace NotebookLM.Persistence.Configuration;
             builder.HasOne(e => e.Summary)
                 .WithOne(s => s.ChatHistory)
                 .HasForeignKey<ChatHistory>(e => e.SummaryId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
