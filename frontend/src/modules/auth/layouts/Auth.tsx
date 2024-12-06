@@ -1,6 +1,6 @@
-import logo from "../../../assets/common/logo-title.svg";
-import image from "../../../assets/auth/login-img.svg";
-import { Outlet } from "react-router-dom";
+import logo from "@/assets/common/logo-title.svg";
+import image from "@/assets/auth/login-img.svg";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Auth() {
   return (
@@ -8,7 +8,9 @@ export default function Auth() {
       {/* Left Section */}
       <section className="flex flex-col bg-white justify-between">
         <header className="p-4">
+        <Link to="/">
           <img src={logo} alt="notepad ai" className="w-44" />
+          </Link>
         </header>
         {/* Outlet Container */}
         <div className="px-12 flex-1 flex flex-col justify-center">
