@@ -17,7 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { loginSchemaType } from "./types";
 import { loginrSchema } from "./schemas/index";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Spinner from "@/components/shared/spinner";
 import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";

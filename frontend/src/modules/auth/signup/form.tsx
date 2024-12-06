@@ -17,7 +17,7 @@ import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { signupSchemaType } from "./types";
 import { signuprSchema } from "./schemas/index";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);

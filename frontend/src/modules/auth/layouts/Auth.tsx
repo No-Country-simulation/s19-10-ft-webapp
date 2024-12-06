@@ -1,6 +1,6 @@
 import logo from "@/assets/common/logo-title.svg";
 import image from "@/assets/auth/login-img.svg";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 
 export default function Auth() {
   return (
