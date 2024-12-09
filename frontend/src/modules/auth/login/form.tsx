@@ -19,7 +19,7 @@ import { PiEnvelopeSimpleFill } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import Spinner from "@/components/shared/spinner";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { loginSchemaType } from "./types";
 import { loginrSchema } from "./schemas/index";
 import { loginUser } from "./actions";
