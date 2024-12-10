@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import logo from '@/assets/common/logo-title.svg'
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
