@@ -9,6 +9,13 @@ export const signuprSchema = z
       .regex(/^[a-zA-Z\s]+$/, {
         message: "Name can only contain letters and spaces",
       }),
+    lastName: z
+      .string()
+      .min(3, { message: "Last Name must be at least 3 characters long" })
+      .max(50, { message: "Last Name must be less than 50 characters" })
+      .regex(/^[a-zA-Z\s]+$/, {
+        message: "Last Name can only contain letters and spaces",
+      }),
     email: z
       .string()
       .email({ message: "A valid email is required" }),
