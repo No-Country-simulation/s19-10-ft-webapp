@@ -1,7 +1,10 @@
-"use client";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import useAppStore from "@/store/useAppStore";
 import {
   Form,
   Input,
@@ -15,17 +18,18 @@ import {
 import { PiEnvelopeSimpleFill } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
+import Spinner from "@/components/shared/spinner";
+import { Link } from "react-router-dom";
 import { loginSchemaType } from "./types";
 import { loginrSchema } from "./schemas/index";
-import { Link } from "react-router-dom";
-import Spinner from "@/components/shared/spinner";
-import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "./actions";
-
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const login = useAppStore((state) => state.login);
+  const navigate = useNavigate();
+
+
   const form = useForm<loginSchemaType>({
     resolver: zodResolver(loginrSchema),
     defaultValues: {
@@ -33,11 +37,14 @@ const LoginForm = () => {
       password: "",
     },
   });
+
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       if (data.token) {
         toast.success("Successfully signed in");
+        login(data.email, data.token); // Actualizar el estado global
+        navigate("/dashboard"); // Redirige al dashboard
       } else {
         toast.error(data.error);
       }
@@ -46,9 +53,11 @@ const LoginForm = () => {
       toast.error("Unexpected error occurred");
     },
   });
+
   const onSubmit = async (values: loginSchemaType) => {
     mutation.mutate(values);
   };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="pt-8">
@@ -58,7 +67,7 @@ const LoginForm = () => {
           render={({ field }) => (
             <FormItem className="pb-6 relative">
               <FormLabel>Email address</FormLabel>
-              <PiEnvelopeSimpleFill className=" absolute top-[36px] text-gray ml-2 text-lg" />
+              <PiEnvelopeSimpleFill className="absolute top-[36px] text-gray ml-2 text-lg" />
               <FormControl>
                 <Input
                   placeholder="e.g john@gmail.com"
@@ -101,7 +110,6 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-
         <div className="w-full pt-3">
           <Button variant={"default"} className="w-full hover:bg-purpleHover">
             {mutation.isPending ? <Spinner /> : "Sign in"}
@@ -116,10 +124,7 @@ const LoginForm = () => {
           </Button>
         </div>
         <div className="mt-8 flex justify-end w-full">
-          <Link
-            to="/signup"
-            className="text-sm text-gray-400 text-right"
-          >
+          <Link to="/signup" className="text-sm text-gray-400 text-right">
             Need an account?{" "}
             <span className="text-blue-600 underline">Create one</span>
           </Link>
