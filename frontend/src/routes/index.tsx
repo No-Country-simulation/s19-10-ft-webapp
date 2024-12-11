@@ -4,6 +4,7 @@ import Auth from '@/modules/auth/layouts/Auth';
 import LoginForm from '@/modules/auth/login/form';
 import SignUpForm from '@/modules/auth/signup/form';
 import DashboardLayout from '@/modules/dashboard/layouts/DashboardLayout';
+import ProtectedRoute from '@/components/security/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,10 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <DashboardLayout />
+    element: 
+    <ProtectedRoute>
+    <DashboardLayout />
+    </ProtectedRoute>
   },
 ]);
 

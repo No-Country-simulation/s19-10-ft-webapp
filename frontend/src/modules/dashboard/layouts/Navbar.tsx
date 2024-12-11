@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import logo from '@/assets/common/logo-title.svg'
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom"; // Asegúrate de usar react-router-dom
+import logo from "@/assets/common/logo-title.svg";
+import useAppStore from "@/store/useAppStore";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const logout = useAppStore((state) => state.logout);
+  const navigate = useNavigate();
 
   // Maneja el clic fuera del menú para cerrarlo
   useEffect(() => {
@@ -21,12 +24,18 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    logout(); // Limpia el estado global
+    navigate("/login"); // Redirige al login
+  };
+
   return (
     <div className="bg-gray-100 border-b border-gray-300 p-4 flex items-center justify-between">
-      {/* Nombre del proyecto */}
+      {/* Logo o Nombre del Proyecto */}
       <Link to="/">
-          <img src={logo} alt="notepad ai" className="p-4  w-44" />
-          </Link>
+        <img src={logo} alt="Notepad AI" className="p-4 w-44" />
+      </Link>
+
       {/* Icono de perfil y menú desplegable */}
       <div className="relative" ref={menuRef}>
         <FaUserCircle
@@ -50,7 +59,7 @@ const Navbar: React.FC = () => {
               </li>
               <li
                 className="p-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => console.log("Cerrar sesión clickeado")}
+                onClick={handleLogout}
               >
                 Log out
               </li>
