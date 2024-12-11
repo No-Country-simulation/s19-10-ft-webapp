@@ -22,8 +22,10 @@ public static class IdentityServiceExtensions
     {
         services.AddDbContext<NotebookLMDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("NotebookLMConnectionString"));
+            options.UseSqlServer(configuration["ConnectionStrings:NotebookLMDConnectionString"]);
         });
+
+
 
         services.AddIdentity<User, IdentityRole<int>>()
             .AddEntityFrameworkStores<NotebookLMDbContext>()

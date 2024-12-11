@@ -24,6 +24,7 @@ public class FileController : ControllerBase
     /// The uploaded file will be stored on the server, and a record will be created in the database.
     /// </remarks>
     /// <param name="file">The file to upload.</param>
+
     /// <response code="200">File uploaded successfully.</response>
     /// <response code="400">The file is invalid or the request is incorrect.</response>
     /// <response code="500">An error occurred while uploading the file.</response>
@@ -31,15 +32,15 @@ public class FileController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))] // Adjust if you return a specific DTO
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [HttpPost("")]
+    [HttpPost("UploadToChat")]
     [RequestSizeLimit(10 * 1024 * 1024)] // 10MB
     [Authorize(Roles = "User")]
-    public async Task<IActionResult> Upload(IFormFile file)
+    public async Task<IActionResult> Upload(IFormFile file, int chatHistoryId)
     {
         try
         {
             var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
-            var result = await _fileService.AddFileAsync(int.Parse(userId), file);
+            var result = await _fileService.AddFileAsync(int.Parse(userId), file, chatHistoryId);
             return Ok(result);
         }
         catch (ArgumentException ex)

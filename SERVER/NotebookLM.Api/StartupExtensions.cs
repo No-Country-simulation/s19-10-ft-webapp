@@ -7,6 +7,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.Mvc;
 using NotebookLM.Application.Contracts.Persistence;
 using NotebookLM.Persistence.Services;
+using NotebookLM.Api.Services;
+using NotebookLM.Domain.Entities;
+using NotebookLM.Persistence.Repositories;
 //using AdoPet.Cloudinary;
 //using AdoPet.RealTime;
 //using AdoPet.SendGrid;
@@ -21,9 +24,16 @@ public static class StartupExtensions
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddIdentityServices(builder.Configuration);
         builder.Services.AddScoped<IFileService, FileService>();
+
         //builder.Services.AddCloudServiceExtensions(builder.Configuration);
         //builder.Services.AddRealTimeServices();
         //builder.Services.AddSendGridServiceExtensions(builder.Configuration);
+
+        builder.Services.AddSingleton<ChatHistoryManager>();
+        builder.Services.AddScoped<SemanticKernelChatService>();
+        builder.Services.AddScoped<KernelMemoryService>();
+        builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddSwagger();

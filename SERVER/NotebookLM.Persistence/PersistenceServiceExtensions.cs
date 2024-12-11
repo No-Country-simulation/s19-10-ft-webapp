@@ -4,6 +4,9 @@ using NotebookLM.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NotebookLM.Persistence.Services.KernelMemoryHelpers.GemmaTokenizer;
+using NotebookLM.Persistence.Services.KernelMemoryHelpers;
+using NotebookLM.Persistence.Services;
 
 
 namespace NotebookLM.Persistence;
@@ -14,9 +17,13 @@ public static class PersistenceServiceExtensions
     {
         services.AddDbContext<NotebookLMDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("NotebookLMDConnectionString"));
+           //ptions.UseSqlServer(configuration.GetConnectionString("NotebookLMDConnectionString"));
+            options.UseSqlServer(configuration["ConnectionStrings:NotebookLMDConnectionString"]);
         });
 
+        services.AddSingleton<GemmaSentencePieceTokenizer>();
+        services.AddTransient<CustomPdfDecoder>(); // Register a custom PDF decoder
+        services.AddScoped<IFileService, FileService>();
         // repositories,ejempl
         //services.AddScoped<IAdoptablePetRepository, AdoptablePetRepository>();
         //services.AddScoped<IAdoptionRequestRepository, AdoptionRequestRepository>();

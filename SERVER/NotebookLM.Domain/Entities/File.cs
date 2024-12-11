@@ -18,7 +18,9 @@ namespace NotebookLM.Domain.Entities;
        
        public DateTime UpdatedAt { get; set; }
 
-       public virtual User User { get; set; } = null!;
+        public int chatHistoryId { get; set; }  
+
+        public virtual User User { get; set; } = null!;
 
        public virtual ICollection<Summary> Summaries { get; set; } = new List<Summary>();
 
