@@ -17,20 +17,43 @@ import { FcGoogle } from "react-icons/fc";
 import { IoIosLock, IoIosEyeOff, IoIosEye } from "react-icons/io";
 import { signupSchemaType } from "./types";
 import { signuprSchema } from "./schemas/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signupUser } from "./actions";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import Spinner from "@/components/shared/spinner";
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  
   const form = useForm<signupSchemaType>({
     resolver: zodResolver(signuprSchema),
     defaultValues: {
+      name: "",
+      lastName: "",
       email: "",
       password: "",
+      repeat_password: "",
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: signupUser,
+    onSuccess: (data) => {
+      if (data) {
+        navigate("/confirm-password");
+      } else {
+        toast.error(data.error);
+      }
+    },
+    onError: () => {
+      toast.error("Unexpected error occurred");
     },
   });
 
   const onSubmit = async (values: signupSchemaType) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <Form {...form}>
@@ -44,7 +67,25 @@ const SignUpForm = () => {
               <PiEnvelopeSimpleFill className=" absolute top-[36px] text-gray ml-2 text-lg" />
               <FormControl>
                 <Input
-                  placeholder="e.g John Doe"
+                  placeholder="e.g John"
+                  className="mt-1 pl-7 focus-visible:ring-0"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="lastName"
+          render={({ field }) => (
+            <FormItem className="pb-6 relative">
+              <FormLabel>Last Name</FormLabel>
+              <PiEnvelopeSimpleFill className=" absolute top-[36px] text-gray ml-2 text-lg" />
+              <FormControl>
+                <Input
+                  placeholder="e.g Doe"
                   className="mt-1 pl-7 focus-visible:ring-0"
                   {...field}
                 />
@@ -135,8 +176,8 @@ const SignUpForm = () => {
         />
 
         <div className="w-full pt-3">
-          <Button variant={"default"} className="w-full hover:bg-purpleHover">
-            Sign in
+        <Button variant={"default"} className="w-full hover:bg-purpleHover">
+            {mutation.isPending ? <Spinner /> : "Register"}
           </Button>
           <div className="flex w-full items-center gap-2 my-5">
             <hr className="h-[2px] bg-gray-200 w-full" />

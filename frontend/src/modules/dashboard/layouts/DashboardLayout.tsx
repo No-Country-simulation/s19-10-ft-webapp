@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import ChatWindow from "../chat/ChatWindow";
 
 const DashboardLayout = () => (
-  <div className="flex">
+  <div className="flex min-h-screen">
     <Sidebar />
     <div className="flex-1">
       <Navbar />
