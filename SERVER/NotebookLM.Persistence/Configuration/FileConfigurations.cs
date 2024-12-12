@@ -10,6 +10,8 @@ internal class FileConfigurations : IEntityTypeConfiguration<Domain.Entities.Fil
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).UseIdentityColumn();
 
+        
+
         builder.HasOne(e => e.User)
             .WithMany(u => u.Files)
             .HasForeignKey(e => e.UserId)
