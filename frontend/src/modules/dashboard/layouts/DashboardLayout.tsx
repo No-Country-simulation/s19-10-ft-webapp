@@ -3,11 +3,17 @@ import Navbar from "./Navbar";
 import ChatWindow from "../chat/ChatWindow";
 
 const DashboardLayout = () => (
-  <div className="flex min-h-screen">
+  <div className="flex h-screen">
+    {/* Sidebar ocupa altura completa */}
     <Sidebar />
-    <div className="flex-1">
+    {/* Contenedor principal */}
+    <div className="flex flex-1 flex-col">
+      {/* Navbar fijo en la parte superior */}
       <Navbar />
-      <main className="p-4"><ChatWindow /></main>
+      {/* Contenedor del contenido principal */}
+      <main className="flex-1 overflow-hidden">
+        <ChatWindow />
+      </main>
     </div>
   </div>
 );
