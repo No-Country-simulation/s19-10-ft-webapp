@@ -42,7 +42,7 @@
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/notepad-ai.git](https://github.com/No-Country-simulation/s19-10-ft-webapp
+   git clone https://github.com/No-Country-simulation/s19-10-ft-webapp
    cd s19-10-ft-webapp
    ```
 
