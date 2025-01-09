@@ -18,7 +18,7 @@ namespace NotebookLM.Persistence.Services.KernelMemoryHelpers.GemmaTokenizer
         public GemmaSentencePieceTokenizer()
         {
 
-            string modelPath = "C:\\Users\\tomas\\source\\repos\\ATaleOfMemories\\GeminiKernelMemoryAdapters\\GemmaTokenizer\\tokenizer.model";
+            string modelPath = "C:\\users\\usuario\\Desktop\\s19-10-ft-webapp\\SERVER\\NotebookLM.Persistence\\Services\\KernelMemoryHelpers\\GemmaTokenizer\\tokenizer.model";
 
             if (!File.Exists(modelPath))
             {

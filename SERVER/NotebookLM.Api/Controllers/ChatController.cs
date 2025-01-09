@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotebookLM.Api.Services;
 using NotebookLM.Persistence.Services;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace NotebookLM.Api.Controllers
 {
@@ -57,22 +58,26 @@ namespace NotebookLM.Api.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpPost("AskFromFile")]
-        public async Task<IActionResult> AskFromFile(string fileId, int chatId, string prompt)
-        {
-            try
-            {
-                var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
+[HttpPost("AskFromFile")]
+public async Task<IActionResult> AskFromFile([FromBody] JsonElement request)
+{
+    try
+    {
+        var fileId = request.GetProperty("fileId").GetString();
+        var chatId = request.GetProperty("chatId").GetInt32();
+        var prompt = request.GetProperty("prompt").GetString();
 
-                var result = await _chatHistorySerrvice.AskFromFile(userId, chatId, prompt, fileId);
+        var userId = User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        var result = await _chatHistorySerrvice.AskFromFile(userId, chatId, prompt, fileId);
+
+        return Ok(result);
+    }
+    catch (Exception e)
+    {
+        return BadRequest(e.Message);
+    }
+}
 
         /*
         [HttpPost]
